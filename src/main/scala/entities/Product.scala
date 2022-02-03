@@ -9,7 +9,7 @@ abstract class Product {
 /*--------------------------Deposits Products--------------------------*/
 abstract class Deposits extends Product {
   val interestPerYear: Double
-  val minimumBalancePerMonth: Int
+  val minimumBalancePerMonth: Dollars
 }
 
 abstract class Checking extends Deposits
@@ -19,26 +19,23 @@ abstract class Savings extends Deposits {
 }
 
 /*---------Checking Products----------*/
-class CoreChecking(bal: Int, rate: Double) extends Checking {
-  println("Created Core Checking Product")
-  override val interestPerYear: Double = rate
-  override val minimumBalancePerMonth: Int = bal
+class CoreChecking(val minimumBalancePerMonth: Dollars,
+                   val interestPerYear: Double) extends Checking {
+  println("Create Core Checking Product")
   override val name: String = "Core Checking"
 }
 
-class StudentChecking(bal: Int, rate: Double) extends Checking {
+class StudentChecking(val minimumBalancePerMonth: Dollars,
+                      val interestPerYear: Double) extends Checking {
   println("Created Student Checking Product")
-  override val interestPerYear: Double = rate
-  override val minimumBalancePerMonth: Int = bal
   override val name: String = "Student Checking"
 }
 
 /*---------Savings Products------------*/
-class RewardsSavings(bal: Int, rate: Double, trans: Int) extends Savings {
+class RewardsSavings(val minimumBalancePerMonth: Dollars,
+                     val interestPerYear: Double,
+                     val transactionsAllowedPerMonth: Int) extends Savings {
   println("Created Rewards Savings Product")
-  override val interestPerYear: Double = rate
-  override val minimumBalancePerMonth: Int = bal
-  override val transactionsAllowedPerMonth: Int = trans
   override val name: String = "Rewards Savings"
 }
 
@@ -49,10 +46,7 @@ abstract class Lending extends Product {
   val rewardsPercent: Double
 }
 
-class CreditCard(fee: Double, rate: Double, pct: Double) extends Lending {
+class CreditCard(val annualFee: Double, val apr: Double, val rewardsPercent: Double) extends Lending {
   println("Created Credit Card Product")
-  override val annualFee: Double = fee
-  override val apr: Double = rate
-  override val rewardsPercent: Double = pct
   override val name: String = "Credit Card"
 }
