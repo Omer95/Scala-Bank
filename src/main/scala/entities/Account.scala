@@ -1,6 +1,7 @@
 package main.scala.entities
 
 import java.util.UUID
+import Dollars.Zero
 
 abstract class Account {
   val id: UUID = UUID.randomUUID()
@@ -13,13 +14,13 @@ class DepositsAccount(val customer: Customer, val product: Deposits,
                       private var balance: Dollars) extends Account {
 
   def deposit(amount: Dollars): Unit = {
-    require(amount > Dollars(0), "amount deposited should be greater than 0")
+    require(amount > Zero, "amount deposited should be greater than 0")
     balance += amount
     println(s"Deposited $amount to ${this.toString}")
   }
 
   def withdraw(amount: Dollars): Unit = {
-    require(amount > Dollars(0) && balance > amount, "amount should be greater than 0 and balance should be greater than amount")
+    require(amount > Zero && balance > amount, "amount should be greater than 0 and balance should be greater than amount")
     balance -= amount
     println(s"Withdrawn $amount from ${this.toString}")
   }
@@ -33,13 +34,13 @@ class DepositsAccount(val customer: Customer, val product: Deposits,
 class LendingAccount(val customer: Customer, val product: Lending,
                      private var balance: Dollars) extends Account {
   def payBill(amount: Dollars): Unit = {
-    require(amount > Dollars(0), "The payment amount must be greater than 0")
+    require(amount > Zero, "The payment amount must be greater than 0")
     balance += amount
     println(s"Paid bill: $amount against ${this.toString}")
   }
 
   def withdraw(amount: Dollars): Unit = {
-    require(amount > Dollars(0), "The withdrawal amount must be greater than 0")
+    require(amount > Zero, "The withdrawal amount must be greater than 0")
     balance -= amount
     println(s"Debited $amount from ${this.toString}")
   }
