@@ -1,6 +1,9 @@
 package main.scala.entities
 
+import java.util.UUID
+
 abstract class Product {
+  val id: UUID = UUID.randomUUID()
   val name: String
 
   override def toString: String = s"Product= $name"
